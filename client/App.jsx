@@ -10,7 +10,6 @@ const App = () => (
   <MuiThemeProvider>
     <div>
       <AppBar />
-      <AppRouter />
     </div>
   </MuiThemeProvider>
 );

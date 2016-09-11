@@ -1,0 +1,8 @@
+// db.json
+
+{
+  "tweets": [{"Had an awesome Starbucks coffee today! #StarbucksFTW"}],
+  "Company": ["Starbucks"],
+  "Points": ["10"],
+  "Reward": ["20 Points for a 50% discount on your next Starbucks purchase!"],
+}

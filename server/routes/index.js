@@ -15,7 +15,7 @@ module.exports = app => {
     }
   );
 
-  app.get('/dashboard', (req, res) => {
-    res.redirect('/dashboard');
-  });
+  // app.get('/dashboard', (req, res) => {
+  //   res.redirect('/dashboard');
+  // });
 };

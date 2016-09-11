@@ -5,8 +5,8 @@ import Dashboard from './Components/Dashboard';
 
 const AppRouter = () => (
   <Router history={browserHistory}>
-    <Route path="/" component={Landing} />
-    <Route path="" component={Dashboard} />
+    <Route path="/" component={Dashboard} />
+    <Route path="/index.html" component={Dashboard} />
   </Router>
 );
 
