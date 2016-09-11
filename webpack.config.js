@@ -1,6 +1,6 @@
 module.exports = {
   // entry point needs to be entry.jsx
-  entry: './client/entry.jsx',
+    entry: './client/App.js',
   // webpack output to client/dist/bundle.js
   output: {
     path: './client/',
