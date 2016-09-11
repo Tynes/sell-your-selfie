@@ -1,3 +1,5 @@
+var passport = require('passport');
+
 module.exports = app => {
   // routes here
 app.get('/auth/twitter', passport.authenticate('twitter'));
