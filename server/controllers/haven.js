@@ -33,13 +33,23 @@ module.exports = (user, img, tweet) => {
                   image_url: img
                 }, (err, result) => {
                   // Tweet created
-                  Point.createPoint({
+                  Point.updatePoint({
                     user_id,
                     brand_id,
                     points: 10
                   }, (err, result) => {
-                    console.log(result);
-                  })
+                    if(!result) {
+                      Point.createPoint({
+                        user_id,
+                        brand_id,
+                        points: 10
+                      }, (err, result) => {
+                        console.log(result);
+                      })
+                    } else {
+                      console.log(result);
+                    }
+                  });
                 });
               } else if (!result[0] && !err) {
                 // Create User
@@ -53,13 +63,23 @@ module.exports = (user, img, tweet) => {
                       image_url: img
                     }, (err, result) => {
                       // Tweet created
-                      Point.createPoint({
+                      Point.updatePoint({
                         user_id,
                         brand_id,
                         points: 10
                       }, (err, result) => {
-                        console.log(result.rows[0]);
-                      })
+                        if(!result) {
+                          Point.createPoint({
+                            user_id,
+                            brand_id,
+                            points: 10
+                          }, (err, result) => {
+                            console.log(result);
+                          })
+                        } else {
+                          console.log(result);
+                        }
+                      });
                     });
                   });
                 });
