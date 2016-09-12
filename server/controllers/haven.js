@@ -15,7 +15,7 @@ module.exports = (user, img, tweet) => {
     logger.info(`Face Detected for ${user.name}'s photo`);
     // Check if there was a face found
     if(body1.face.length){
-      client.post('recognizeimages', {url: img}, (err, resp, body) => {
+      client.post('recognizeimages', {url: img, image_type: complex_3d}, (err, resp, body) => {
         body.object.forEach(logo => {
           logger.info(`${logo.name} Logo Detected for ${user.name}'s photo`);
           // Find the brand id in the database 
