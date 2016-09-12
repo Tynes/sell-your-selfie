@@ -1,8 +1,5 @@
 const logger = require('../utils/logger');
-const User = require('./User');
-const Tweet = require('./Tweet');
-const Brand = require('./Brand');
-const Point = require('./Point');
+const saveController = require('./saveController');
 
 module.exports = (user, img, tweet) => {
   const havenondemand = require('havenondemand');
@@ -15,77 +12,11 @@ module.exports = (user, img, tweet) => {
     logger.info(`Face Detected for ${user.name}'s photo`);
     // Check if there was a face found
     if(body1.face.length){
-      client.post('recognizeimages', {url: img, image_type: complex_3d}, (err, resp, body) => {
+      client.post('recognizeimages', {url: img, image_type: 'complex_3d'}, (err, resp, body) => {
         body.object.forEach(logo => {
           logger.info(`${logo.name} Logo Detected for ${user.name}'s photo`);
-          // Find the brand id in the database 
-          Brand.getBrandId(logo.name, (err, result) =>{
-            // Now we need to check if the user exists
-            const brand_id = result.rows[0].brand_id;
-            User.checkIfUserExists(user.screen_name, (err, result) => {
-              if (result[0]) {
-                let user_id = result[0].user_id;
-                // User exists
-                Tweet.addTweet({ 
-                  user_id, 
-                  brand_id, 
-                  message: tweet.message, 
-                  image_url: img
-                }, (err, result) => {
-                  // Tweet created
-                  Point.updatePoint({
-                    user_id,
-                    brand_id,
-                    points: 10
-                  }, (err, result) => {
-                    if(!result) {
-                      Point.createPoint({
-                        user_id,
-                        brand_id,
-                        points: 10
-                      }, (err, result) => {
-                        console.log(result);
-                      })
-                    } else {
-                      console.log(result);
-                    }
-                  });
-                });
-              } else if (!result[0] && !err) {
-                // Create User
-                User.createUser(user.screen_name, (err, result) => {
-                  User.checkIfUserExists(user.screen_name, (err, result) => {
-                    let user_id = result[0].user_id;
-                    Tweet.addTweet({ 
-                      user_id,
-                      brand_id, 
-                      message: tweet.message, 
-                      image_url: img
-                    }, (err, result) => {
-                      // Tweet created
-                      Point.updatePoint({
-                        user_id,
-                        brand_id,
-                        points: 10
-                      }, (err, result) => {
-                        if(!result) {
-                          Point.createPoint({
-                            user_id,
-                            brand_id,
-                            points: 10
-                          }, (err, result) => {
-                            console.log(result);
-                          })
-                        } else {
-                          console.log(result);
-                        }
-                      });
-                    });
-                  });
-                });
-              }
-            });
-          });
+          // Find the brand id in the database
+          saveController(user, img, tweet, logo);
         })
       });
     } else {

@@ -1,6 +1,6 @@
 const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
-const User = require('./controllers/User');
+const User = require('./controllers/db/User');
 const logger = require('./utils/logger');
 
 module.exports = () => {
