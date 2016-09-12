@@ -10,7 +10,6 @@ class Dashboard extends React.Component {
     };
   }
   populateTweets() {
-    console.log('populating');
     fetch('/getpoints/jreidgreer', {
       method: 'GET',
       credentials: 'same-origin',
@@ -21,7 +20,6 @@ class Dashboard extends React.Component {
     })
     .then(body => body.json())
     .then(json => {
-      console.log(json);
       this.setState({
         tweets: json,
       });
@@ -29,7 +27,6 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    console.log('ComponentDidMount');
     this.populateTweets();
   }
   
@@ -43,8 +40,8 @@ class Dashboard extends React.Component {
         <div className='dashboardTweets'>
           <ul>
               Your Advertisements | Your Points
-            {this.state.tweets.map(tweet =>
-              <li>{`${tweet.name} | ${tweet.points} points`}</li>
+            {this.state.tweets.map((tweet, index) =>
+              <li key={index}>{`${tweet.name} | ${tweet.points} points`}</li>
             )}
           </ul>
         </div>
