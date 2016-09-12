@@ -1,5 +1,5 @@
 import React from 'react';
-import fetch from 'whatwg-fetch';
+import 'whatwg-fetch';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class Dashboard extends React.Component {
     };
   }
   populateTweets() {
-    fetch('/getpoints/:username', {
+    fetch('/getpoints/jreidgreer', {
       method: 'GET',
       credentials: 'same-origin',
       headers: {
@@ -18,14 +18,15 @@ class Dashboard extends React.Component {
         ContentType: 'application/json',
       },
     })
-    .then(body => {
+    .then(body => body.json())
+    .then(json => {
       this.setState({
-        tweets: body,
+        tweets: json,
       });
     });
   }
 
-  ComponentDidMount() {
+  componentDidMount() {
     this.populateTweets();
   }
   
@@ -39,8 +40,8 @@ class Dashboard extends React.Component {
         <div className='dashboardTweets'>
           <ul>
               Your Advertisements | Your Points
-            {this.state.tweets.map(tweet =>
-              <li>`${tweet.name} | ${tweet.points}`</li>
+            {this.state.tweets.map((tweet, index) =>
+              <li key={index}>{`${tweet.name} | ${tweet.points} points`}</li>
             )}
           </ul>
         </div>
