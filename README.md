@@ -1,5 +1,6 @@
-# sell-your-selfie
-API World Hackathon Project
+<img src="https://s14.postimg.org/4xgjxakhd/hackathon_logo.png" height="143" alt="Sell Your Selfie" />
+
+**API World Hackathon Project**
 
 ## Overview
 SellYourSelfie was designed as a proof-of-concept for a viral marketing incentive platform. The service creates a Twitter stream that monitors a hashtag, then runs matching tweet images through several APIs provided by HPE Haven OnDemand. First, it verifies the image is a selfie through facial recognition, then it runs it through image recognition against a dataset of over 760 brand images to identify which logos are present in the image. The user is then given reward points specific to that company. 
